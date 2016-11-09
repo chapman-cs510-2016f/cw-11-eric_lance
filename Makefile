@@ -6,7 +6,7 @@
 
 # Sets default compiler options
 export CC = gcc
-export CFLAGS = -Wall -O2
+export CFLAGS = -Wall -O2 -I../src/stack -I../src/matrix
 # Change to flags below for debugging with gdb
 #export CFLAGS = -Wall -O0 -g
 
