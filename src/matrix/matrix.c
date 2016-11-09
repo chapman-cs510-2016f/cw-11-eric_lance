@@ -45,7 +45,7 @@ void mset(MATRIX *m, const MINDEX row, const MINDEX col, const MVALUE v) {
   // 
   // Question: is this the same as the following?
   //   (m->mat)[row][col] = v;
-  // Ans: No, this gives a syntax error since the first braket turns
+  // Ans: No, this gives a syntax error since the first bracket turns
   // the array into an element of the array (the row-th element) and
   // c does not understand that this is to be interperited as a
   // multidimensional array. It is equivilant to the following:
@@ -91,7 +91,7 @@ void print_matrix(const MATRIX *m) {
   
   for (i=0; i<maxr; ++i) {
     for (j=0; j<maxc; ++j) {
-      printf("%Lf", (m->mat)[(m->cols * i) + j]);
+      print_value( mget(m,i,j) );
     }
     printf("\n");
   }
@@ -113,7 +113,7 @@ MATRIX add_matrix(const MATRIX *m, const MATRIX *n) {
 
   for (i=0; i<maxr; ++i) {
     for (j=0; j<maxc; ++j) {
-      ans.mat[(ans.cols * i) + j]=  (m->mat)[(m->cols * i) + j];
+      mset(&ans,i,j, (mget(m,i,j) + mget(n,i,j)) );
     }
   }
   return ans;
