@@ -45,7 +45,12 @@ void mset(MATRIX *m, const MINDEX row, const MINDEX col, const MVALUE v) {
   // 
   // Question: is this the same as the following?
   //   (m->mat)[row][col] = v;
-  // 
+  // Ans: No, this gives a syntax error since the first braket turns
+  // the array into an element of the array (the row-th element) and
+  // c does not understand that this is to be interperited as a
+  // multidimensional array. It is equivilant to the following:
+  //   (m->mat)[(m->cols * row) + col] = v;
+  // -Eric
   //
   // This is called "row-major ordering" for matrices, since
   // the memory is arranged with each row being contiguous,
@@ -65,9 +70,7 @@ void mset(MATRIX *m, const MINDEX row, const MINDEX col, const MVALUE v) {
 }
 
 MVALUE mget(const MATRIX *m, const MINDEX row, const MINDEX col) {
-  /*
-   * CODE GOES HERE
-   */
+    return (m->mat)[(m->cols * row) + col]; // *(m->mat + (m->cols * row) + col);
 }
 
 // Abstraction layer in case implementation of VALUE changes later
@@ -79,13 +82,39 @@ void print_matrix(const MATRIX *m) {
   MINDEX maxr, maxc;
   maxr = m->rows;
   maxc = m->cols;
+  int i; //loop counter
+  int j; //loop counter
 
   // print values of matrix separated by tabs
   // with each row on a separate line
   printf("Matrix (rows: %d, cols: %d) \n", maxr, maxc);
-  /* 
-   * CODE GOES HERE
-   */
+  
+  for (i=0; i<maxr; ++i) {
+    for (j=0; j<maxc; ++j) {
+      printf("%Lf", (m->mat)[(m->cols * i) + j]);
+    }
+    printf("\n");
+  }
 }
 
-// Implementation for add_matrix goes below
+MATRIX add_matrix(const MATRIX *m, const MATRIX *n) {
+  MINDEX maxr, maxc;
+  maxr = m->rows;
+  maxc = m->cols;
+  int i; //loop counter
+  int j; //loop counter
+  MATRIX ans;
+  ans = new_matrix(maxr, maxc);
+ 
+  if (m->rows != n->rows || m->cols != n->cols) {
+    printf("Error: Cannot add matrices with different shapes.");
+    return ans;
+  }
+
+  for (i=0; i<maxr; ++i) {
+    for (j=0; j<maxc; ++j) {
+      ans.mat[(ans.cols * i) + j]=  (m->mat)[(m->cols * i) + j];
+    }
+  }
+  return ans;
+}
