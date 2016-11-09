@@ -75,7 +75,7 @@ MVALUE mget(const MATRIX *m, const MINDEX row, const MINDEX col) {
 
 // Abstraction layer in case implementation of VALUE changes later
 void print_value(const MVALUE v) {
-  printf("%Lf", v);
+  printf("%Lf ", v);
 }
 
 void print_matrix(const MATRIX *m) {
