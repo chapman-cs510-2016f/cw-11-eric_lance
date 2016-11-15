@@ -32,7 +32,7 @@ Complete the following exercises, saving your solutions in the indicated files.
 
 Analyze in this section what you found useful about this assignment in your own words. Include any lingering questions or comments that you may have.
 
-**CHANGEME**
+I found the stack implimentation to be very interesting, as it is quite different from c++ stack implimentations I've seen and emphasizes the differences between the two. Multidimensional arrays in C are a bit of a pain, so examples of how they work are great. 
 
 ## Honor Pledge
 
